@@ -9,8 +9,9 @@ color buttoncolor, highlight, currentColor;
 RectButton rect1, rect2, rect3;
 String[] data1;
 PShape divTexto;
-
 PImage btnTexto, btnPhoto, btnMove, backgroundImage, screenshot, roca;
+String estadoGuante;
+
 boolean areaBtnDocumento=false, areaBtnPhoto=false;
 int [] valores;
 int indice,medio,anular,center;
@@ -56,25 +57,30 @@ void setupCanvas() {
 
 void draw() {
   drawCanvas();
-
-  // String estadoGuante = serialPort.readStringUntil('\n');
+  // estadoGuante = serialPort.readStringUntil('\n');
   // delay(5);
-  // if(estadoGuante!= null) {
-  //   valores =int(split(estadoGuante,","));
-  //   if(estadoGuante != null && valores.length >= 5) {
-  //     x = (int)map(valores[1],263,390,0,width);
-  //     y = (int)map(valores[0],263,390,height,0);
-  //     indice = valores[2];
-  //     medio = valores[3];
-  //     anular = valores[4];
-  //   }
+  // if(estadoGuante!= null) { 
+  //   drawPointers();
   // }
-  
-
-    if(tom == true){
+  if(tom == true){
     tomar();
   }
+}
 
+void drawPointers() {
+  valores =int(split(estadoGuante,","));
+  if(estadoGuante != null && valores.length >= 5) {
+    x = (int)map(valores[1],263,390,0,width);
+    y = (int)map(valores[0],263,390,height,0);
+    indice = (int)valores[2];
+    medio = valores[3];
+    anular = valores[4];
+    if(indice == 1) {
+      indicePressed();
+    }
+
+  }
+   
 }
 
 void drawCanvas() {
@@ -106,25 +112,21 @@ void drawCanvas() {
   }
 
 
-if(openWindowImage)
-  {
-    image(screenshot,30,100);
-    
+  if(openWindowImage) {
+    image(screenshot,30,100);  
   }
 
   fill(255);  
 
-   if(openMObject) {
+  if(openMObject) {
     shape(divTexto,50,10);
     fill(255,255,0);
+
     imageMode(CENTER);
     image(roca, t1, t2);
     imageMode(CORNER);
-    
   }
-
   ellipse(x, y, 10, 10);
-
 }
 
 
@@ -199,50 +201,54 @@ void keyPressed() {
 }
 
 void mousePressed() {
+  openWindowOnEvent();
+}
+
+void indicePressed() {
+  openWindowOnEvent();
+}
+
+void openWindowOnEvent() {
   data1=loadStrings("../Documentos/Texto1.txt"); 
 
   if(openWindowText)
   {
-    if(areaBtnDocumento)
-        openWindowText=false;
-  }
-  else
-  {
-    if(areaBtnDocumento)
+    if(areaBtnDocumento) {
+      openWindowText=false;
+    }
+        
+  } else {
+    if(areaBtnDocumento) {
       openWindowText=true;
+    }
   }
   
-
-  if(openWindowImage)
-  {
-    if(areaBtnPhoto)
-      openWindowImage = false;
-  }else
-  {
-    if(areaBtnPhoto)
-    openWindowImage = true;
+  if(openWindowImage) {
+    if(areaBtnPhoto) {
+       openWindowImage = false;    
+    }
+    
+  } else {
+    if(areaBtnPhoto) {
+      openWindowImage = true;
+    }
   }
   
-  if(areaBtnPhoto)
-  {  
+  if(areaBtnPhoto) {  
     saveFrame("../Images/screen.jpg");
     screenshot = loadImage("../Images/status.png");
   }
 
   
-  if(openMObject)
-  {
-    if(areaBtnMObject)
-        openMObject=false;
-  }
-  else
-  {
-    if(areaBtnMObject)
+  if(openMObject) {
+    if(areaBtnMObject) {
+      openMObject=false;
+    }
+  } else {
+    if(areaBtnMObject) {
       openMObject=true;
+    } 
   }
-  
-  
-
 }
 
 void tomar(){
