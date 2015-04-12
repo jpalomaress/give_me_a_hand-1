@@ -15,6 +15,10 @@ boolean areaBtnDocumento=false, areaBtnPhoto=false;
 int [] valores;
 int indice,medio,anular,center;
 
+//***********************variables moveObject***********************
+boolean openMObject = false, areaBtnMObject=false, tom = false;
+int t1=300,t2=300;
+
 
 void setup() {
   setupCanvas();
@@ -47,6 +51,7 @@ void setupCanvas() {
 
 void draw() {
   drawCanvas();
+
   // String estadoGuante = serialPort.readStringUntil('\n');
   // delay(5);
   // if(estadoGuante!= null) {
@@ -60,6 +65,11 @@ void draw() {
   //   }
   // }
   
+
+    if(tom == true){
+    tomar();
+  }
+
 }
 
 void drawCanvas() {
@@ -77,7 +87,9 @@ void drawCanvas() {
   image(btnMove, center, 470);
   image(btnPhoto, center+150, 470);
   stroke(0);
-  
+  //Creando espacio para Mover el Objeto y el Objeto
+ 
+    
   if(openWindowText) {
     shape(divTexto,50,10);
     fill(255,255,0);
@@ -88,12 +100,23 @@ void drawCanvas() {
     varText=30;
   }
 
+
 if(openWindowImage)
   {
     
   }
 
   fill(255);  
+
+   if(openMObject) {
+    shape(divTexto,50,10);
+    fill(255,255,0);
+    rectMode(CENTER);
+    rect(t1, t2, 50, 50);
+    rectMode(CORNER);
+    
+  }
+
   ellipse(x, y, 10, 10);
 
 }
@@ -117,8 +140,10 @@ void checkRects(int x, int y){
 
   if(rect2.over(x,y)) {
     btnMove = loadImage("../Images/remote_over.png");
+    areaBtnMObject = true;
   } else {
     btnMove = loadImage("../Images/remote.png");
+    areaBtnMObject = false;
   }
   
   if(rect3.over(x,y)) {
@@ -148,7 +173,23 @@ void keyPressed() {
       y = y-10;
       break;
     
+    case 'o':
+      if(x>=(t1-25) && x<=(t1+25)){
+         if(y>=t2-(25) && y<=t2+(25)){
+             tom=true;
+             x = t1;
+             y = t2;
+         }
+      }else{tom = false;}  
+    break;
+    
+    case 'p':
+      t1=t1;
+      t2=t2;
+      tom = false;
+      break;
   }
+  
 }
 
 void mousePressed() {
@@ -165,6 +206,7 @@ void mousePressed() {
       openWindowText=true;
   }
   
+
   if(openWindowImage)
   {
     if(areaBtnPhoto)
@@ -180,7 +222,28 @@ void mousePressed() {
     saveFrame("../Images/screen.jpg");
     screenshot = loadImage("../Images/screen.jpg");
   }
+
+  
+  if(openMObject)
+  {
+    if(areaBtnMObject)
+        openMObject=false;
+  }
+  else
+  {
+    if(areaBtnMObject)
+      openMObject=true;
+  }
+  
+  
+
 }
+
+void tomar(){
+  t1 = x;
+  t2 = y;
+ 
+ }
 
 
 
