@@ -4,15 +4,17 @@
 
 int x =300, y = 300, varText=30;
 PFont xFont,yFont;
-boolean locked = false, textCharged1=false, openWindowText = false;
+boolean locked = false, textCharged1=false, openWindowText = false, openWindowImage = false;
 color buttoncolor, highlight, currentColor;
 RectButton rect1, rect2, rect3;
 String[] data1;
 PShape divTexto;
-PImage btnTexto, btnPhoto, btnMove, backgroundImage;
-boolean areaBtnDocumento=false;
+
+PImage btnTexto, btnPhoto, btnMove, backgroundImage, screenshot;
+boolean areaBtnDocumento=false, areaBtnPhoto=false;
 int [] valores;
 int indice,medio,anular,center;
+
 
 void setup() {
   setupCanvas();
@@ -85,8 +87,14 @@ void drawCanvas() {
     }
     varText=30;
   }
-  fill(255);
-  ellipse(x, y, 50, 50);
+
+if(openWindowImage)
+  {
+    
+  }
+
+  fill(255);  
+  ellipse(x, y, 10, 10);
 
 }
 
@@ -115,8 +123,10 @@ void checkRects(int x, int y){
   
   if(rect3.over(x,y)) {
     btnPhoto = loadImage("../Images/pic_over.png"); 
+    areaBtnPhoto = true;
   } else {
     btnPhoto = loadImage("../Images/pic.png");
+    areaBtnPhoto=false;
   }
 }
 
@@ -153,6 +163,22 @@ void mousePressed() {
   {
     if(areaBtnDocumento)
       openWindowText=true;
+  }
+  
+  if(openWindowImage)
+  {
+    if(areaBtnPhoto)
+      openWindowImage = false;
+  }else
+  {
+    if(areaBtnPhoto)
+    openWindowImage = true;
+  }
+  
+  if(areaBtnPhoto)
+  {  
+    saveFrame("../Images/screen.jpg");
+    screenshot = loadImage("../Images/screen.jpg");
   }
 }
 
