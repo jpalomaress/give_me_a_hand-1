@@ -21,7 +21,7 @@ class RectButton extends Button {
     y = iy;
     size = isize;
   
-    highlightcolor = ihighlight;
+    //highlightcolor = ihighlight;
 
   }
 

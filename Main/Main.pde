@@ -6,6 +6,8 @@ RectButton rect1, rect2, rect3;
 String[] data1;
 PShape divTexto;
 PImage btnTexto, btnPhoto, btnMove, backgroundImage;
+boolean areaBtnDocumento=false;
+
 
 void setup() {
   setupCanvas();
@@ -24,7 +26,7 @@ void setupCanvas() {
   rect3 = new RectButton(320, 470, 100, highlight);
 
   divTexto = createShape(RECT, 0, 0, 700, 450);
-  divTexto.setFill(color(255, 255, 255));
+  divTexto.setFill(color(255, 255, 255,30));
   divTexto.setStroke(false);
   
   btnTexto = loadImage("../Images/mission.png");
@@ -55,7 +57,7 @@ void drawCanvas() {
   
   if(openWindowText) {
     shape(divTexto,50,10);
-    fill(0,0,0);
+    fill(255,255,0);
     for (int i = 0 ; i < data1.length; i++) {
       text(data1[i],55,varText);
       varText +=15;
@@ -75,8 +77,11 @@ void checkRects(int x, int y){
     currentColor = rect1.basecolor;
     text("rect1 is over", 0,0,0);
     btnTexto = loadImage("../Images/mission_over.png");
+    areaBtnDocumento = true;
+
   } else {
     btnTexto = loadImage("../Images/mission.png");
+    areaBtnDocumento = false;
   } 
 
   if(rect2.over(x,y)) {
@@ -117,9 +122,15 @@ void mousePressed() {
   data1=loadStrings("../Documentos/Texto1.txt"); 
 
   if(openWindowText)
-    openWindowText=false;
+  {
+    if(areaBtnDocumento)
+        openWindowText=false;
+  }
   else
-    openWindowText=true;
+  {
+    if(areaBtnDocumento)
+      openWindowText=true;
+  }
 }
 
 
