@@ -48,7 +48,10 @@ void setupCanvas() {
   btnPhoto = loadImage("../Images/pic.png");
   btnMove = loadImage("../Images/remote.png");
   backgroundImage= loadImage("../Images/space.jpg");
+
   roca = loadImage("../Images/piedra.png");
+  screenshot = loadImage("../Images/status.png");
+
 }
 
 void draw() {
@@ -105,6 +108,7 @@ void drawCanvas() {
 
 if(openWindowImage)
   {
+    image(screenshot,30,100);
     
   }
 
@@ -222,7 +226,7 @@ void mousePressed() {
   if(areaBtnPhoto)
   {  
     saveFrame("../Images/screen.jpg");
-    screenshot = loadImage("../Images/screen.jpg");
+    screenshot = loadImage("../Images/status.png");
   }
 
   
