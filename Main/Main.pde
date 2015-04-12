@@ -1,3 +1,7 @@
+// import processing.serial.*;
+// Serial serialPort;
+
+
 int x =300, y = 300, varText=30;
 PFont xFont,yFont;
 boolean locked = false, textCharged1=false, openWindowText = false;
@@ -7,10 +11,13 @@ String[] data1;
 PShape divTexto;
 PImage btnTexto, btnPhoto, btnMove, backgroundImage;
 boolean areaBtnDocumento=false;
-
+int [] valores;
+int indice,medio,anular,center;
 
 void setup() {
   setupCanvas();
+  // serialPort = new Serial(this, "/dev/cu.usbmodem1411", 9600);
+  // serialPort.bufferUntil('\n');
 }
 
 void setupCanvas() {
@@ -21,9 +28,10 @@ void setupCanvas() {
   // Define and create rectangle button
   buttoncolor = color(181,173,173);
 
-  rect1 = new RectButton(20,  470, 100, highlight);
-  rect2 = new RectButton(170, 470, 100, highlight);
-  rect3 = new RectButton(320, 470, 100, highlight);
+  center = width/2-50;
+  rect1 = new RectButton(center-150,  470, 100, highlight);
+  rect2 = new RectButton(center, 470, 100, highlight);
+  rect3 = new RectButton(center+150, 470, 100, highlight);
 
   divTexto = createShape(RECT, 0, 0, 700, 450);
   divTexto.setFill(color(255, 255, 255,30));
@@ -37,6 +45,19 @@ void setupCanvas() {
 
 void draw() {
   drawCanvas();
+  // String estadoGuante = serialPort.readStringUntil('\n');
+  // delay(5);
+  // if(estadoGuante!= null) {
+  //   valores =int(split(estadoGuante,","));
+  //   if(estadoGuante != null && valores.length >= 5) {
+  //     x = (int)map(valores[1],263,390,0,width);
+  //     y = (int)map(valores[0],263,390,height,0);
+  //     indice = valores[2];
+  //     medio = valores[3];
+  //     anular = valores[4];
+  //   }
+  // }
+  
 }
 
 void drawCanvas() {
@@ -50,9 +71,9 @@ void drawCanvas() {
   rect3.display();
   
   stroke(204, 102, 0);
-  image(btnTexto, 20, 470);
-  image(btnMove, 170, 470);
-  image(btnPhoto, 320, 470);
+  image(btnTexto, center-150, 470);
+  image(btnMove, center, 470);
+  image(btnPhoto, center+150, 470);
   stroke(0);
   
   if(openWindowText) {
@@ -64,7 +85,9 @@ void drawCanvas() {
     }
     varText=30;
   }
-  ellipse(x, y, 10, 10);
+  fill(255);
+  ellipse(x, y, 50, 50);
+
 }
 
 
