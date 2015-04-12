@@ -6,7 +6,7 @@ PFont xLeftFont,yLeftFont;
 boolean locked = false;
 color buttoncolor, highlight;
 color currentColor;
-RectButton rect1, rect2;
+RectButton rect1, rect2, rect3;
 
 int varText=60;
 String[] data1;
@@ -19,36 +19,37 @@ boolean openWindowText = false;
 
 void setup() {
   size(900, 600, P2D);
-  // Creating the PShape as a square. The
-  // numeric arguments are similar to rect().
   xLeftFont = createFont("Arial",16,true); 
   yLeftFont = createFont("Arial",16,true); 
   
-  //color baseColor = color(223,213,213);
-  //currentColor = baseColor;
   // Define and create rectangle button
-  buttoncolor = color(102);
-  highlight = color(51); 
-  rect1 = new RectButton(0, 100, 100, buttoncolor, highlight);
-  
+  buttoncolor = color(200,100,100);
+
+  rect1 = new RectButton(50,  510, 100, buttoncolor, highlight);
+  rect2 = new RectButton(200, 510, 100, buttoncolor, highlight);
+  rect3 = new RectButton(350, 510, 100, buttoncolor, highlight);
+
+
   divTexto = createShape(RECT, 0, 0, 700, 450);
   divTexto.setFill(color(255, 255, 255));
   divTexto.setStroke(false);
   
-  btnTexto = loadImage("C:/Users/gvaldes/Desktop/Space App Challenge/Botones/mission.png");
-  btnPhoto = loadImage("C:/Users/gvaldes/Desktop/Space App Challenge/Botones/pic.png");
-  btnMove = loadImage("C:/Users/gvaldes/Desktop/Space App Challenge/Botones/remote.png");
+  btnTexto = loadImage("../Images/mission.png");
+  btnPhoto = loadImage("../Images/pic.png");
+  btnMove = loadImage("../Images/remote.png");
 }
 
 void draw() {
-  background(400);
+  background(200,100,100);
   textFont(xLeftFont,16);
   text("X Left: "+xLeft,300,100);
   textFont(xLeftFont,16);
   text("y Left: "+yLeft,300,120);  
-  ellipse(xLeft, yLeft, 10, 10);
+  
   update(xLeft, yLeft);
   rect1.display();
+  rect2.display();
+  rect3.display();
   
   stroke(204, 102, 0);
   image(btnTexto, 50, 510);
@@ -71,21 +72,35 @@ void draw() {
       //textCharged1=true;
     //}
   }
+
+  ellipse(xLeft, yLeft, 10, 10);
   
 }
 
 void update(int x, int y) {  
+
+   checkRects(x, y);
+}
+void checkRects(int x, int y){
   if(rect1.over(x,y)) {
     currentColor = rect1.basecolor;
+    // btnTexto = loadImage("laDefense.jpg");
     text("rect1 is over", 0,0,0);
      println("rect1 is over");
+    btnTexto = loadImage("../Images/mission_over.png");
+
+  } else {
+    btnTexto = loadImage("../Images/mission.png");
+  } 
+
+  if(rect2.over(x,y)) {
+    println("rect2 is over");
+  } else if(rect3.over(x,y)) {
+    println("rect3 is over");
   }
-  
 }
 
-
 void keyPressed() {
-  
   switch(key)
   {
     case 113:
@@ -108,7 +123,7 @@ void keyPressed() {
 }
 
 void mousePressed() {
-  data1=loadStrings("C:/Users/gvaldes/Desktop/Space App Challenge/processing-2.2.1/textos/Texto1.txt"); 
+  // data1=loadStrings("C:/Users/gvaldes/Desktop/Space App Challenge/processing-2.2.1/textos/Texto1.txt"); 
   
   if(openWindowText)
     openWindowText=false;
