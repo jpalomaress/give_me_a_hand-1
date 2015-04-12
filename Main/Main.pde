@@ -26,9 +26,9 @@ void setup() {
   // Define and create rectangle button
   buttoncolor = color(181,173,173);
 
-  rect1 = new RectButton(20,  470, 100, buttoncolor, highlight);
-  rect2 = new RectButton(170, 470, 100, buttoncolor, highlight);
-  rect3 = new RectButton(320, 470, 100, buttoncolor, highlight);
+  rect1 = new RectButton(20,  470, 100, highlight);
+  rect2 = new RectButton(170, 470, 100, highlight);
+  rect3 = new RectButton(320, 470, 100, highlight);
 
   divTexto = createShape(RECT, 0, 0, 700, 450);
   divTexto.setFill(color(255, 255, 255));

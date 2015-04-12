@@ -6,11 +6,7 @@ class Button {
   boolean over = false;
   boolean pressed = false;   
   void update() {
-    if(over()) {
-      currentcolor = highlightcolor;
-    } else {
-      currentcolor = basecolor;
-    }
+
   }
 
   boolean over() { 
@@ -20,13 +16,13 @@ class Button {
 }
 
 class RectButton extends Button {
-  RectButton(int ix, int iy, int isize, color icolor, color ihighlight) {
+  RectButton(int ix, int iy, int isize, color ihighlight) {
     x = ix;
     y = iy;
     size = isize;
-    basecolor = icolor;
+  
     highlightcolor = ihighlight;
-    currentcolor = basecolor;
+
   }
 
   void display() {
