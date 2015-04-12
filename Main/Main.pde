@@ -8,27 +8,27 @@ color buttoncolor, highlight;
 color currentColor;
 RectButton rect1, rect2, rect3;
 
-int varText=60;
+int varText=30;
 String[] data1;
 boolean textCharged1=false;
 PShape divTexto;
 PImage btnTexto;
 PImage btnPhoto;
 PImage btnMove;
+PImage backgroundImage;
 boolean openWindowText = false;
 
 void setup() {
-  size(900, 600, P2D);
+  size(765, 574, P2D);
   xLeftFont = createFont("Arial",16,true); 
   yLeftFont = createFont("Arial",16,true); 
   
   // Define and create rectangle button
-  buttoncolor = color(200,100,100);
+  buttoncolor = color(181,173,173);
 
-  rect1 = new RectButton(50,  510, 100, buttoncolor, highlight);
-  rect2 = new RectButton(200, 510, 100, buttoncolor, highlight);
-  rect3 = new RectButton(350, 510, 100, buttoncolor, highlight);
-
+  rect1 = new RectButton(20,  470, 100, buttoncolor, highlight);
+  rect2 = new RectButton(170, 470, 100, buttoncolor, highlight);
+  rect3 = new RectButton(320, 470, 100, buttoncolor, highlight);
 
   divTexto = createShape(RECT, 0, 0, 700, 450);
   divTexto.setFill(color(255, 255, 255));
@@ -37,14 +37,16 @@ void setup() {
   btnTexto = loadImage("../Images/mission.png");
   btnPhoto = loadImage("../Images/pic.png");
   btnMove = loadImage("../Images/remote.png");
+  backgroundImage= loadImage("../Images/space.jpg");
 }
 
 void draw() {
-  background(200,100,100);
+  //background(181,173,173);
+  background(backgroundImage);
   textFont(xLeftFont,16);
-  text("X Left: "+xLeft,300,100);
+  //text("X Left: "+xLeft,300,100);
   textFont(xLeftFont,16);
-  text("y Left: "+yLeft,300,120);  
+  //text("y Left: "+yLeft,300,120);  
   
   update(xLeft, yLeft);
   rect1.display();
@@ -52,23 +54,23 @@ void draw() {
   rect3.display();
   
   stroke(204, 102, 0);
-  image(btnTexto, 50, 510);
-  image(btnMove, 200, 510);
-  image(btnPhoto, 350, 510);
+  image(btnTexto, 20, 470);
+  image(btnMove, 170, 470);
+  image(btnPhoto, 320, 470);
   stroke(0);
   
   if(openWindowText)
   {
-    shape(divTexto,150,50);
+    shape(divTexto,50,10);
     //text(println(data1),155,55); 
     //if(!textCharged1)
     //{
       fill(0,0,0);
       for (int i = 0 ; i < data1.length; i++) {
-        text(data1[i],155,varText);
+        text(data1[i],55,varText);
         varText +=15;
       }
-      varText=60;
+      varText=30;
       //textCharged1=true;
     //}
   }
@@ -95,8 +97,19 @@ void checkRects(int x, int y){
 
   if(rect2.over(x,y)) {
     println("rect2 is over");
-  } else if(rect3.over(x,y)) {
+    btnMove = loadImage("../Images/remote_over.png");
+  } else 
+  {
+    btnMove = loadImage("../Images/remote.png");
+  }
+  
+  
+  if(rect3.over(x,y)) {
     println("rect3 is over");
+    btnPhoto = loadImage("../Images/pic_over.png"); 
+  }else
+  {
+    btnPhoto = loadImage("../Images/pic.png");
   }
 }
 
@@ -123,7 +136,7 @@ void keyPressed() {
 }
 
 void mousePressed() {
-  // data1=loadStrings("C:/Users/gvaldes/Desktop/Space App Challenge/processing-2.2.1/textos/Texto1.txt"); 
+   data1=loadStrings("../Documentos/Texto1.txt"); 
   
   if(openWindowText)
     openWindowText=false;

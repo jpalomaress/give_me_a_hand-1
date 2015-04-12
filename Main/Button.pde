@@ -30,7 +30,7 @@ class RectButton extends Button {
   }
 
   void display() {
-    stroke(255);
+    stroke(0);
     fill(currentcolor);
     rect(x, y, size, size);
   }
