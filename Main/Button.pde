@@ -42,8 +42,6 @@ class RectButton extends Button {
     } else {
       return false;
     }
-  }
-  
- 
+  } 
 }
 
