@@ -10,14 +10,15 @@ RectButton rect1, rect2, rect3;
 String[] data1;
 PShape divTexto;
 
-PImage btnTexto, btnPhoto, btnMove, backgroundImage, screenshot;
+PImage btnTexto, btnPhoto, btnMove, backgroundImage, screenshot, roca;
 boolean areaBtnDocumento=false, areaBtnPhoto=false;
 int [] valores;
 int indice,medio,anular,center;
 
 //***********************variables moveObject***********************
 boolean openMObject = false, areaBtnMObject=false, tom = false;
-int t1=300,t2=300;
+int t1=500,t2=300;
+PShape divCuadro;
 
 
 void setup() {
@@ -47,6 +48,7 @@ void setupCanvas() {
   btnPhoto = loadImage("../Images/pic.png");
   btnMove = loadImage("../Images/remote.png");
   backgroundImage= loadImage("../Images/space.jpg");
+  roca = loadImage("../Images/piedra.png");
 }
 
 void draw() {
@@ -111,9 +113,9 @@ if(openWindowImage)
    if(openMObject) {
     shape(divTexto,50,10);
     fill(255,255,0);
-    rectMode(CENTER);
-    rect(t1, t2, 50, 50);
-    rectMode(CORNER);
+    imageMode(CENTER);
+    image(roca, t1, t2);
+    imageMode(CORNER);
     
   }
 
@@ -174,8 +176,8 @@ void keyPressed() {
       break;
     
     case 'o':
-      if(x>=(t1-25) && x<=(t1+25)){
-         if(y>=t2-(25) && y<=t2+(25)){
+      if(x>=(t1-125) && x<=(t1+125)){
+         if(y>=t2-(129.5) && y<=t2+(129.5)){
              tom=true;
              x = t1;
              y = t2;
