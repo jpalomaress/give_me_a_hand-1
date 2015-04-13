@@ -1,5 +1,5 @@
-// import processing.serial.*;
-// Serial serialPort;
+import processing.serial.*;
+Serial serialPort;
 
 
 int x =300, y = 300, varText=30;
@@ -24,8 +24,8 @@ PShape divCuadro;
 
 void setup() {
   setupCanvas();
-  // serialPort = new Serial(this, "/dev/cu.usbmodem1411", 9600);
-  // serialPort.bufferUntil('\n');
+  serialPort = new Serial(this, "/dev/cu.German-DevB", 9600);
+  serialPort.bufferUntil('\n');
 }
 
 void setupCanvas() {
@@ -57,11 +57,11 @@ void setupCanvas() {
 
 void draw() {
   drawCanvas();
-  // estadoGuante = serialPort.readStringUntil('\n');
-  // delay(5);
-  // if(estadoGuante!= null) { 
-  //   drawPointers();
-  // }
+  estadoGuante = serialPort.readStringUntil('\n');
+  delay(5);
+  if(estadoGuante!= null) { 
+    drawPointers();
+  }
   if(tom == true){
     tomar();
   }
@@ -70,8 +70,8 @@ void draw() {
 void drawPointers() {
   valores =int(split(estadoGuante,","));
   if(estadoGuante != null && valores.length >= 5) {
-    x = (int)map(valores[1],263,390,0,width);
-    y = (int)map(valores[0],263,390,height,0);
+    x = (int)map(valores[1],320,410,0,width);
+    y = (int)map(valores[0],310,415,height,0);
     indice = (int)valores[2];
     medio = valores[3];
     anular = valores[4];
@@ -206,6 +206,18 @@ void mousePressed() {
 
 void indicePressed() {
   openWindowOnEvent();
+  if(x>=(t1-125) && x<=(t1+125)){
+         if(y>=t2-(129.5) && y<=t2+(129.5)){
+             tom=true;
+             x = t1;
+             y = t2;
+         }
+      }else{tom = false;}  
+      
+      t1=t1;
+      t2=t2;
+      tom = false;
+  
 }
 
 void openWindowOnEvent() {
